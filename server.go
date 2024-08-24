@@ -80,6 +80,7 @@ func main() {
 	}
 	s := grpc.NewServer()
 	service := &UserServer{}
+	service.users = make(map[string]*user.UserReceipt, 0)
 	user.RegisterUserServiceServer(s, service)
 	err = s.Serve(lis)
 	if err != nil {
