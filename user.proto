@@ -1,0 +1,65 @@
+syntax = "proto3";
+package user;
+option go_package = "github.com/kartikey-star/grpcassign/user";
+
+message User {
+  string firstname= 1;
+  string lastname= 2;
+  string emailaddress= 3;
+}
+
+message UserRequest {
+  User user = 1;
+  string from = 2;
+  string to = 3;
+  string seat = 4;
+  string section = 5;
+}
+
+message UserReceipt {
+  User user = 1;
+  string from = 2;
+  string to = 3;
+  string section = 4;
+  int64 price= 5;
+  string seat = 6;
+  bool status = 7;
+}
+
+message ReadUserRequest {
+    User user = 1;
+}
+
+
+message UpdateUserRequest {
+  User user = 1;
+  string from = 2;
+  string to = 3;
+  string seat = 4;
+  string section = 5;
+}
+
+message DeleteUserRequest {
+    User user = 1;
+}
+
+message DeleteUserReceipt {
+    User user = 1;
+    bool status = 2;
+}
+
+message ListUserRequest{
+    string section = 1;
+}
+
+message ListUserResponse{
+    repeated UserReceipt userReceiptlist = 1;
+}
+
+service UserService {
+  rpc Create(UserRequest) returns (UserReceipt);
+  rpc Get(ReadUserRequest) returns (UserReceipt);
+  rpc Update(UpdateUserRequest) returns (UserReceipt);
+  rpc List(ListUserRequest) returns (ListUserResponse);
+  rpc Delete(DeleteUserRequest) returns (DeleteUserReceipt);
+}
